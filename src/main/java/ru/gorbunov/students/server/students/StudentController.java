@@ -3,8 +3,13 @@ package ru.gorbunov.students.server.students;
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import ru.gorbunov.students.dto.student.StudentAddDto;
+import ru.gorbunov.students.dto.student.StudentDto;
+import ru.gorbunov.students.dto.student.StudentMapper;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/students")
@@ -17,6 +22,13 @@ public class StudentController {
 
     public StudentController(StudentService service) {
         this.service = service;
+    }
+
+    @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
+    public StudentDto addStudent(@RequestBody @Valid StudentAddDto studentAddDto) {
+        log.info("StudentController: Request to add a new student: {}", studentAddDto.toString());
+        return StudentMapper.toDto(service.addStudent(studentAddDto));
     }
 
 
