@@ -1,7 +1,6 @@
 package ru.gorbunov.students.server.students;
 
 import lombok.AccessLevel;
-import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import ru.gorbunov.students.dto.student.StudentDto;
 import ru.gorbunov.students.dto.student.StudentMapper;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +20,6 @@ import java.util.stream.Collectors;
 public class StudentController {
 
     StudentService service;
-
 
     public StudentController(StudentService service) {
         this.service = service;
