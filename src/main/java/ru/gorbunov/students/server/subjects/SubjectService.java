@@ -16,4 +16,6 @@ public interface SubjectService {
     Subject updateSubject(SubjectAddDto subjectAddDto, Long subjectId);
 
     void removeSubject(Long subjectId);
+
+    Subject addStudent(Long studentId, Long subjectId);
 }

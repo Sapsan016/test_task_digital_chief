@@ -5,9 +5,6 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.gorbunov.students.dto.student.StudentAddDto;
-import ru.gorbunov.students.dto.student.StudentDto;
-import ru.gorbunov.students.dto.student.StudentMapper;
 import ru.gorbunov.students.dto.subject.SubjectAddDto;
 import ru.gorbunov.students.dto.subject.SubjectDto;
 import ru.gorbunov.students.dto.subject.SubjectMapper;
@@ -33,6 +30,13 @@ public class SubjectController {
     public SubjectDto addSubject(@RequestBody @Valid SubjectAddDto subjectAddDto) {
         log.info("SubjectController: Request to add a new subject: {}", subjectAddDto.toString());
         return SubjectMapper.toDto(service.addSubject(subjectAddDto));
+    }
+
+    @PatchMapping("/subject/{subjectId}/student/{studentId}")
+    public SubjectDto addStudentToSubject(@PathVariable Long subjectId, @PathVariable Long studentId) {
+        log.info("SubjectController: Request to add a student with ID = {}, to the subject with ID = {}",
+                studentId, subjectId);
+        return SubjectMapper.toDto(service.addStudent(studentId, subjectId));
     }
 
     @GetMapping("/subject/{subjectId}")

@@ -8,6 +8,7 @@ import ru.gorbunov.students.dto.subject.SubjectAddDto;
 import ru.gorbunov.students.dto.subject.SubjectMapper;
 import ru.gorbunov.students.model.Subject;
 import ru.gorbunov.students.server.exception.ObjectNotFoundException;
+import ru.gorbunov.students.server.students.StudentService;
 
 import java.util.List;
 
@@ -18,8 +19,11 @@ public class SubjectServiceImpl implements SubjectService {
 
     SubjectRepository subjectRepository;
 
-    public SubjectServiceImpl(SubjectRepository subjectRepository) {
+    StudentService studentService;
+
+    public SubjectServiceImpl(SubjectRepository subjectRepository, StudentService studentService) {
         this.subjectRepository = subjectRepository;
+        this.studentService = studentService;
     }
 
     @Override
@@ -60,6 +64,16 @@ public class SubjectServiceImpl implements SubjectService {
         Subject subjectToRemove = findSubjectById(subjectId);
         subjectRepository.delete(subjectToRemove);
         log.info("Removed subject with ID = {}", subjectId);
+    }
+
+    @Override
+    public Subject addStudent(Long studentId, Long subjectId) {
+        studentService.findStudentById(studentId);
+        Subject subject = findSubjectById(subjectId);
+        subject.setStudentsCount(subject.getStudentsCount() + 1);
+        subjectRepository.save(subject);
+        log.info("Added student with ID = {} to the subject with ID = {}", studentId, subjectId);
+        return subject;
     }
 
     private void checkUpdate(Subject subjectToUpdate, SubjectAddDto subjectAddDto) {
