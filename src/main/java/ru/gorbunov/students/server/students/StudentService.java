@@ -14,4 +14,6 @@ public interface StudentService {
     List<Student> findAllStudents(Integer from, Integer size, String sort);
 
     Student updateStudent(StudentAddDto studentAddDto, Long studentId);
+
+    void removeStudent(Long studentId);
 }

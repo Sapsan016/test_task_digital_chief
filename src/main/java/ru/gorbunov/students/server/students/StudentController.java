@@ -1,6 +1,7 @@
 package ru.gorbunov.students.server.students;
 
 import lombok.AccessLevel;
+import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -58,7 +59,13 @@ public class StudentController {
         log.info("StudentController: Request to update the student with ID = {}, new student's data: {}", studentId,
                 studentAddDto.toString());
         return StudentMapper.toDto(service.updateStudent(studentAddDto, studentId));
+    }
 
+    @DeleteMapping("/student")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeStudent(@RequestParam Long studentId) {
+        log.info("StudentController: Request to remove student wit ID = {}", studentId);
+        service.removeStudent(studentId);
     }
 
 

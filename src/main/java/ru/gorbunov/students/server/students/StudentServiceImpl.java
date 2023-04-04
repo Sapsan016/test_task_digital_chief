@@ -55,6 +55,14 @@ public class StudentServiceImpl implements StudentService {
         return studentToUpdate;
     }
 
+    @Override
+    public void removeStudent(Long studentId) {
+        Student studentToRemove = findStudentById(studentId);
+        studentRepository.delete(studentToRemove);
+        log.info("Removed student with ID = {}", studentId);
+
+    }
+
     private void checkUpdate(Student studentToUpdate, StudentAddDto studentAddDto) {
         if (studentAddDto.getName() != null)
             studentToUpdate.setName(studentAddDto.getName());
