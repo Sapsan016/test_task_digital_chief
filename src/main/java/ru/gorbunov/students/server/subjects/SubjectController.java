@@ -35,8 +35,8 @@ public class SubjectController {
         return SubjectMapper.toDto(service.addSubject(subjectAddDto));
     }
 
-    @GetMapping("/subject")
-    public SubjectDto getSubjectById(@RequestParam Long subjectId) {
+    @GetMapping("/subject/{subjectId}")
+    public SubjectDto getSubjectById(@PathVariable Long subjectId) {
         log.info("SubjectController: Request to find a subject wit ID = {}", subjectId);
         return SubjectMapper.toDto(service.findSubjectById(subjectId));
     }
@@ -53,9 +53,9 @@ public class SubjectController {
                 .collect(Collectors.toList());
     }
 
-    @PatchMapping("/subject")
+    @PatchMapping("/subject/{subjectId}")
     public SubjectDto updateSubject(@RequestBody SubjectAddDto subjectAddDto,
-                                    @RequestParam Long subjectId) {
+                                    @PathVariable Long subjectId) {
         log.info("SubjectController: Request to update the subject with ID = {}, new subject's data: {}", subjectId,
                 subjectAddDto.toString());
         return SubjectMapper.toDto(service.updateSubject(subjectAddDto, subjectId));

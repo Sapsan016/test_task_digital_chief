@@ -32,8 +32,8 @@ public class StudentController {
         return StudentMapper.toDto(service.addStudent(studentAddDto));
     }
 
-    @GetMapping("/student")
-    public StudentDto getStudentById(@RequestParam Long studentId) {
+    @GetMapping("/student/{studentId}")
+    public StudentDto getStudentById(@PathVariable Long studentId) {
         log.info("StudentController: Request to find a student wit ID = {}", studentId);
         return StudentMapper.toDto(service.findStudentById(studentId));
     }
@@ -50,9 +50,9 @@ public class StudentController {
                 .collect(Collectors.toList());
     }
 
-    @PatchMapping("/student")
+    @PatchMapping("/student/{studentId}")
     public StudentDto updateStudent(@RequestBody StudentAddDto studentAddDto,
-                                    @RequestParam Long studentId) {
+                                    @PathVariable Long studentId) {
         log.info("StudentController: Request to update the student with ID = {}, new student's data: {}", studentId,
                 studentAddDto.toString());
         return StudentMapper.toDto(service.updateStudent(studentAddDto, studentId));
