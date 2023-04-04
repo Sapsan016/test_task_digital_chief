@@ -60,7 +60,6 @@ public class StudentServiceImpl implements StudentService {
         Student studentToRemove = findStudentById(studentId);
         studentRepository.delete(studentToRemove);
         log.info("Removed student with ID = {}", studentId);
-
     }
 
     private void checkUpdate(Student studentToUpdate, StudentAddDto studentAddDto) {

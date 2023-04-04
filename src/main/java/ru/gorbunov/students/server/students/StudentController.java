@@ -1,7 +1,6 @@
 package ru.gorbunov.students.server.students;
 
 import lombok.AccessLevel;
-import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import ru.gorbunov.students.dto.student.StudentDto;
 import ru.gorbunov.students.dto.student.StudentMapper;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +20,6 @@ import java.util.stream.Collectors;
 public class StudentController {
 
     StudentService service;
-
 
     public StudentController(StudentService service) {
         this.service = service;
@@ -35,8 +32,8 @@ public class StudentController {
         return StudentMapper.toDto(service.addStudent(studentAddDto));
     }
 
-    @GetMapping("/student")
-    public StudentDto getStudentById(@RequestParam Long studentId) {
+    @GetMapping("/student/{studentId}")
+    public StudentDto getStudentById(@PathVariable Long studentId) {
         log.info("StudentController: Request to find a student wit ID = {}", studentId);
         return StudentMapper.toDto(service.findStudentById(studentId));
     }
@@ -53,9 +50,9 @@ public class StudentController {
                 .collect(Collectors.toList());
     }
 
-    @PatchMapping("/student")
+    @PatchMapping("/student/{studentId}")
     public StudentDto updateStudent(@RequestBody StudentAddDto studentAddDto,
-                                    @RequestParam Long studentId) {
+                                    @PathVariable Long studentId) {
         log.info("StudentController: Request to update the student with ID = {}, new student's data: {}", studentId,
                 studentAddDto.toString());
         return StudentMapper.toDto(service.updateStudent(studentAddDto, studentId));
