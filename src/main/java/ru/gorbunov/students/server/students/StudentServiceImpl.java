@@ -46,5 +46,27 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.getAllStudents(from, size);
     }
 
+    @Override
+    public Student updateStudent(StudentAddDto studentAddDto, Long studentId) {
+        Student studentToUpdate = findStudentById(studentId);
+        checkUpdate(studentToUpdate, studentAddDto);
+        studentRepository.save(studentToUpdate);
+        log.info("Updated student with ID = {}", studentId);
+        return studentToUpdate;
+    }
+
+    private void checkUpdate(Student studentToUpdate, StudentAddDto studentAddDto) {
+        if (studentAddDto.getName() != null)
+            studentToUpdate.setName(studentAddDto.getName());
+        if (studentAddDto.getSurname() != null)
+            studentToUpdate.setSurname(studentAddDto.getName());
+        if (studentAddDto.getDateOfBirth() != null)
+            studentToUpdate.setDateOfBirth(studentAddDto.getDateOfBirth());
+        if (studentAddDto.getSex() != null)
+            studentToUpdate.setSex(studentAddDto.getSex());
+        if (studentAddDto.getEmail() != null)
+            studentToUpdate.setEmail(studentAddDto.getEmail());
+    }
+
 
 }

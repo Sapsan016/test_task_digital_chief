@@ -46,14 +46,20 @@ public class StudentController {
                                         @RequestParam(defaultValue = "NO") String sort) {
         log.info("StudentController: Request to find students, skip first: {}, " +
                 "list size: {}, sorted by rate: {}", from, size, sort);
-
         return service.findAllStudents(from, size, sort)
                 .stream()
                 .map(StudentMapper::toDto)
                 .collect(Collectors.toList());
     }
 
+    @PatchMapping("/student")
+    public StudentDto updateStudent(@RequestBody StudentAddDto studentAddDto,
+                                    @RequestParam Long studentId) {
+        log.info("StudentController: Request to update the student with ID = {}, new student's data: {}", studentId,
+                studentAddDto.toString());
+        return StudentMapper.toDto(service.updateStudent(studentAddDto, studentId));
 
+    }
 
 
 }
