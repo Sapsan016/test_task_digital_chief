@@ -10,6 +10,9 @@ import ru.gorbunov.students.dto.student.StudentDto;
 import ru.gorbunov.students.dto.student.StudentMapper;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/students")
@@ -31,6 +34,24 @@ public class StudentController {
         return StudentMapper.toDto(service.addStudent(studentAddDto));
     }
 
+    @GetMapping("/student")
+    public StudentDto getStudentById(@RequestParam Long studentId) {
+        log.info("StudentController: Request to find a student wit ID = {}", studentId);
+        return StudentMapper.toDto(service.findStudentById(studentId));
+    }
+
+    @GetMapping()
+    public List<StudentDto> getStudents(@RequestParam(defaultValue = "0") Integer from,
+                                        @RequestParam(defaultValue = "10") Integer size,
+                                        @RequestParam(defaultValue = "NO") String sort) {
+        log.info("StudentController: Request to find students, skip first: {}, " +
+                "list size: {}, sorted by rate: {}", from, size, sort);
+
+        return service.findAllStudents(from, size, sort)
+                .stream()
+                .map(StudentMapper::toDto)
+                .collect(Collectors.toList());
+    }
 
 
 
