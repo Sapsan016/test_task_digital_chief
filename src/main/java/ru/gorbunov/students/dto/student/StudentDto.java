@@ -25,6 +25,6 @@ public class StudentDto {
 
     String email;
 
-    Double rate;
+    Double averageGrade;
 
 }
