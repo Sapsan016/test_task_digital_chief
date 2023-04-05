@@ -10,4 +10,7 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
 
     @Query(value = "SELECT avg(grade) FROM grades WHERE student_id = ?", nativeQuery = true)
     Double getAverageGrade(Long student_id);
+
+    @Query(value = "SELECT * FROM grades WHERE student_id = ? offset ? LIMIT ?", nativeQuery = true)
+    List<Grade> findAllByStudentId(Long studentId, Integer from, Integer size);
 }

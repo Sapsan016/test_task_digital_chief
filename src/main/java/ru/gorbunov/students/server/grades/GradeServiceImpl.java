@@ -55,6 +55,6 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     public List<Grade> findStudentsGrade(Integer from, Integer size, Long studentId) {
-        return null;
+        return gradeRepository.findAllByStudentId(studentId, from, size);
     }
 }

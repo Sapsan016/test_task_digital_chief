@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.gorbunov.students.dto.grades.GradeDto;
 import ru.gorbunov.students.dto.grades.GradeMapper;
-import ru.gorbunov.students.dto.subject.SubjectDto;
-import ru.gorbunov.students.dto.subject.SubjectMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
