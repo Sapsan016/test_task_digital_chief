@@ -7,8 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.gorbunov.students.dto.grades.GradeDto;
 import ru.gorbunov.students.dto.grades.GradeMapper;
-import ru.gorbunov.students.dto.subject.SubjectDto;
-import ru.gorbunov.students.dto.subject.SubjectMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +18,6 @@ import java.util.stream.Collectors;
 public class GradeController {
 
     GradeService service;
-
 
     public GradeController(GradeService service) {
         this.service = service;
@@ -36,8 +33,8 @@ public class GradeController {
 
     @GetMapping("/{studentId}")
     public List<GradeDto> getStudentGrades(@RequestParam(defaultValue = "0") Integer from,
-                                        @RequestParam(defaultValue = "10") Integer size,
-                                        @PathVariable Long studentId) {
+                                           @RequestParam(defaultValue = "10") Integer size,
+                                           @PathVariable Long studentId) {
         log.info("GradeController: Request to find grades for the student with ID = {}, skip first: {}, " +
                 "list size: {}", studentId, from, size);
         return service.findStudentsGrade(from, size, studentId)
@@ -45,6 +42,4 @@ public class GradeController {
                 .map(GradeMapper::toDto)
                 .collect(Collectors.toList());
     }
-
-
 }

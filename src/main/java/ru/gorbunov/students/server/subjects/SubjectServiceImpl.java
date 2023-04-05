@@ -21,9 +21,12 @@ public class SubjectServiceImpl implements SubjectService {
 
     StudentService studentService;
 
-    public SubjectServiceImpl(SubjectRepository subjectRepository, StudentService studentService) {
+    SubjectStudentsDao studentsDao;
+
+    public SubjectServiceImpl(SubjectRepository subjectRepository, StudentService studentService, SubjectStudentsDao studentsDao) {
         this.subjectRepository = subjectRepository;
         this.studentService = studentService;
+        this.studentsDao = studentsDao;
     }
 
     @Override
@@ -72,6 +75,7 @@ public class SubjectServiceImpl implements SubjectService {
         Subject subject = findSubjectById(subjectId);
         subject.setStudentsCount(subject.getStudentsCount() + 1);
         subjectRepository.save(subject);
+        studentsDao.addNewStudent(subjectId, studentId);
         log.info("Added student with ID = {} to the subject with ID = {}", studentId, subjectId);
         return subject;
     }

@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class StudentController {
-
     StudentService service;
 
     public StudentController(StudentService service) {
@@ -43,7 +42,7 @@ public class StudentController {
                                         @RequestParam(defaultValue = "10") Integer size,
                                         @RequestParam(defaultValue = "NO") String sort) {
         log.info("StudentController: Request to find students, skip first: {}, " +
-                "list size: {}, sorted by rate: {}", from, size, sort);
+                "list size: {}, sorted by averageGrade: {}", from, size, sort);
         return service.findAllStudents(from, size, sort)
                 .stream()
                 .map(StudentMapper::toDto)

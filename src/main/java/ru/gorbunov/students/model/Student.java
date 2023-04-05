@@ -33,7 +33,7 @@ public class Student {
     String email;
 
     @Column(name = "student_rate")
-    Double rate;
+    Double averageGrade;
 
 
 

@@ -18,6 +18,10 @@ public class StudentServiceImpl implements StudentService {
 
     StudentRepository studentRepository;
 
+    static String UP = "ASC";
+
+    static String DOWN = "DESC";
+
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
@@ -38,9 +42,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> findAllStudents(Integer from, Integer size, String sort) {
-        if (!sort.equals("NO")) {
+        if (sort.equals(DOWN)) {
             log.info("Getting students list sort by rate: {}, skip: {}, size: {}", sort, from, size);
-            return studentRepository.getAllStudentsSort(sort, from, size);
+            return studentRepository.getAllStudentsSortDesc(from, size);
+        }
+        if (sort.equals(UP)) {
+            log.info("Getting students list sort by rate: {}, skip: {}, size: {}", sort, from, size);
+            return studentRepository.getAllStudentsSortAsc(from, size);
         }
         log.info("Getting students list skip: {}, size: {}", from, size);
         return studentRepository.getAllStudents(from, size);

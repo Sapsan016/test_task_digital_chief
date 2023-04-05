@@ -23,7 +23,7 @@ public class StudentMapper {
                 student.getDateOfBirth(),
                 student.getSex(),
                 student.getEmail(),
-                student.getRate()
+                student.getAverageGrade()
         );
     }
 }

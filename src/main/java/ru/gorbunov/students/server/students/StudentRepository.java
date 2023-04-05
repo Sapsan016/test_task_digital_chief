@@ -8,8 +8,13 @@ import java.util.List;
 
 public interface StudentRepository extends JpaRepository <Student, Long> {
 
-    @Query(value = "SELECT * FROM students ORDER BY rate ? offset ? LIMIT ?", nativeQuery = true)
-    List<Student> getAllStudentsSort(String sort, Integer from, Integer size);
+    @Query(value = "SELECT * FROM students ORDER BY student_rate DESC offset ? LIMIT ?", nativeQuery = true)
+    List<Student> getAllStudentsSortDesc(Integer from, Integer size);
+
+    @Query(value = "SELECT * FROM students ORDER BY student_rate ASC offset ? LIMIT ?", nativeQuery = true)
+    List<Student> getAllStudentsSortAsc(Integer from, Integer size);
+
+
 
     @Query(value = "SELECT * FROM students offset ? LIMIT ?", nativeQuery = true)
     List<Student> getAllStudents(Integer from, Integer size);
